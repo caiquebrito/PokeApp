@@ -33,14 +33,19 @@ android {
 }
 
 dependencies {
+    implementation(project(":design"))
     implementation(project(":domain"))
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    implementation(libs.androidx.activity)
-    implementation(libs.androidx.constraintlayout)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    with(libs) {
+        with(androidx) {
+            implementation(core.ktx)
+            implementation(appcompat)
+            implementation(activity)
+            implementation(constraintlayout)
+            androidTestImplementation(junit)
+            androidTestImplementation(espresso.core)
+        }
+        implementation(material)
+        testImplementation(junit)
+    }
 }
