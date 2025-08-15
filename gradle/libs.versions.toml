@@ -8,11 +8,23 @@ espressoCore = "3.7.0"
 lifecycleRuntimeKtx = "2.9.2"
 activityCompose = "1.10.1"
 composeBom = "2024.09.00"
+compose = "1.9.0"
 jetbrainsKotlinJvm = "2.0.21"
 appcompat = "1.7.1"
 material = "1.12.0"
 activity = "1.10.1"
 constraintlayout = "2.2.1"
+koin = "4.0.3"
+navigation = "2.9.3"
+
+#Android Default Version
+compileSdk = "36"
+minSdk = "26"
+targetSdk = "35"
+javaVersion = "VERSION_17"
+javaTarget = "17"
+jvmTarget = "1.8"
+composeCompilerExtension = "1.5.15"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -34,10 +46,27 @@ material = { group = "com.google.android.material", name = "material", version.r
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 
+# Insert Koin
+koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }
+koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
+koin-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin" }
+
+# Compose
+androidx-compose-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "compose" }
+androidx-compose-animation = { group = "androidx.compose.animation", name = "animation", version.ref = "compose" }
+androidx-foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "compose" }
+androidx-material = { group = "androidx.compose.material", name = "material", version.ref = "compose" }
+androidx-runtime = { group = "androidx.compose.runtime", name = "runtime", version.ref = "compose" }
+androidx-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
+
+#Okhttp and Retrofit
+
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 android-library = { id = "com.android.library", version.ref = "agp" }
-
+serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+navigationSafeArgs = { id = "androidx.navigation.safeargs", version = "2.7.7" }

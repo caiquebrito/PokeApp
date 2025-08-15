@@ -5,4 +5,15 @@ plugins {
     alias(libs.plugins.kotlin.compose) apply false
     alias(libs.plugins.jetbrains.kotlin.jvm) apply false
     alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.serialization) apply false
+    alias(libs.plugins.navigationSafeArgs) apply false
+}
+
+buildscript {
+    repositories {
+        google()
+    }
+    dependencies {
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:${libs.versions.navigation.get()}")
+    }
 }

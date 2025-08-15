@@ -1,3 +1,7 @@
+import org.gradle.kotlin.dsl.withType
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
@@ -5,13 +9,26 @@ plugins {
 
 android {
     namespace = "com.caiquebrito.main"
-    compileSdk = 36
 
+    compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
-        minSdk = 24
-
+        minSdk = libs.versions.minSdk.get().toInt()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
+    }
+
+    lint {
+        abortOnError = false
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.valueOf(libs.versions.javaVersion.get())
+        targetCompatibility = JavaVersion.valueOf(libs.versions.javaVersion.get())
+    }
+
+    tasks.withType<KotlinJvmCompile>().configureEach {
+        compilerOptions {
+            jvmTarget.set(JvmTarget.fromTarget(libs.versions.javaTarget.get()))
+        }
     }
 
     buildTypes {
@@ -23,13 +40,6 @@ android {
             )
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-    kotlinOptions {
-        jvmTarget = "11"
-    }
 }
 
 dependencies {
@@ -39,10 +49,14 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":presentation"))
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    with(libs) {
+        with(androidx) {
+            implementation(core.ktx)
+            implementation(appcompat)
+            androidTestImplementation(libs.androidx.junit)
+            androidTestImplementation(libs.androidx.espresso.core)
+        }
+        implementation(material)
+        testImplementation(junit)
+    }
 }

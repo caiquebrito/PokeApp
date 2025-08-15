@@ -1,17 +1,47 @@
+import org.gradle.kotlin.dsl.withType
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
 }
 
 android {
     namespace = "com.caiquebrito.design"
-    compileSdk = 36
 
+    buildFeatures {
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.composeCompilerExtension.get()
+    }
+
+    kotlinOptions {
+        jvmTarget = libs.versions.jvmTarget.get()
+    }
+
+    compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
-        minSdk = 24
-
+        minSdk = libs.versions.minSdk.get().toInt()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
+    }
+
+    lint {
+        abortOnError = false
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.valueOf(libs.versions.javaVersion.get())
+        targetCompatibility = JavaVersion.valueOf(libs.versions.javaVersion.get())
+    }
+
+    tasks.withType<KotlinJvmCompile>().configureEach {
+        compilerOptions {
+            jvmTarget.set(JvmTarget.fromTarget(libs.versions.javaTarget.get()))
+        }
     }
 
     buildTypes {
@@ -23,21 +53,31 @@ android {
             )
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-    kotlinOptions {
-        jvmTarget = "11"
-    }
 }
 
 dependencies {
+    implementation(project(":data"))
+    implementation(project(":data-local"))
+    implementation(project(":data-remote"))
+    implementation(project(":domain"))
+    implementation(project(":presentation"))
+    implementation(libs.androidx.foundation)
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    with(libs) {
+        with(androidx) {
+            implementation(core.ktx)
+            implementation(appcompat)
+            androidTestImplementation(junit)
+            androidTestImplementation(espresso.core)
+            with(compose) {
+                implementation(ui)
+                implementation(animation)
+                implementation(material)
+                implementation(foundation)
+                implementation(runtime)
+            }
+        }
+        implementation(material)
+        testImplementation(junit)
+    }
 }
