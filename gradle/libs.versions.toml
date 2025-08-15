@@ -5,7 +5,7 @@ coreKtx = "1.16.0"
 junit = "4.13.2"
 junitVersion = "1.3.0"
 espressoCore = "3.7.0"
-lifecycleRuntimeKtx = "2.9.2"
+lifecycleKtx = "2.9.2"
 activityCompose = "1.10.1"
 composeBom = "2024.09.00"
 compose = "1.9.0"
@@ -31,7 +31,8 @@ androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = 
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
-androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleKtx" }
+androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleKtx" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
 androidx-ui = { group = "androidx.compose.ui", name = "ui" }
@@ -45,6 +46,8 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+coil = { group = "io.coil-kt", name = "coil", version = "2.7.0" }
+google-accompanist = { group = "com.google.accompanist", name = "accompanist-coil", version = "0.15.0" }
 
 # Insert Koin
 koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }
@@ -60,7 +63,10 @@ androidx-runtime = { group = "androidx.compose.runtime", name = "runtime", versi
 androidx-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
 
 #Okhttp and Retrofit
-
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version = "3.0.0" }
+retrofit-converter = { group = "com.squareup.retrofit2", name = "converter-gson", version = "3.0.0" }
+okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version = "5.1.0" }
+okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version = "5.1.0" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
